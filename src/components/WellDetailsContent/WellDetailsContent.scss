@@ -115,22 +115,30 @@ $hover-ui: #e5e5e5;
       }
 
       .timeline-edit-btn {
-        width: 32px;
-        height: 32px;
-        background-color: transparent;
-        border: 1px solid $border-subtle;
-        border-radius: 4px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
+        // Carbon tertiary button styling (medium = 40px)
+        &.bx--btn--tertiary.bx--btn--icon-only {
+          width: 40px;
+          height: 40px;
+          min-height: 40px;
+          padding: 0;
+          border: 1px solid $interactive-01;
+          display: flex;
+          align-items: center;
+          justify-content: center;
 
-        &:hover {
-          background-color: $hover-ui;
-        }
+          svg {
+            fill: $interactive-01;
+            width: 16px;
+            height: 16px;
+          }
 
-        svg {
-          fill: $text-02;
+          &:hover {
+            background-color: $interactive-01;
+            
+            svg {
+              fill: #ffffff;
+            }
+          }
         }
       }
     }
@@ -164,6 +172,7 @@ $hover-ui: #e5e5e5;
         height: 2px;
         background-color: #c6c6c6;
         margin-left: 0;
+        min-width: 20px; // Ensure line is always visible
       }
 
       &__content {
@@ -274,10 +283,15 @@ $hover-ui: #e5e5e5;
         color: $text-01;
       }
 
+      tr {
+        background-color: $ui-01; // White background for rows
+      }
+
       td {
         font-family: 'IBM Plex Sans', sans-serif;
         font-size: 14px;
         color: $text-01;
+        background-color: $ui-01; // White background for cells
       }
     }
 
@@ -287,6 +301,141 @@ $hover-ui: #e5e5e5;
 
       &:hover {
         text-decoration: underline;
+      }
+    }
+  }
+
+  // Unit Details Section - New Styling
+  &__unit-section {
+    margin-bottom: 20px;
+    background-color: $ui-01; // White wrapper
+    border-radius: 4px;
+    padding: 12px 16px 16px 16px;
+  }
+
+  &__section-heading {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 28px;
+    color: $text-01;
+    margin: 0 0 16px 0;
+  }
+
+  &__unit-table-wrapper {
+    background-color: $ui-02; // Light grey for table area
+    border-radius: 4px;
+    overflow: hidden;
+
+    .unit-table-toolbar {
+      display: flex;
+      align-items: center;
+      background-color: $ui-02; // Light grey
+      
+      .unit-table-search {
+        flex: 1;
+
+        .bx--search-input {
+          background-color: transparent;
+          border: none;
+          height: 48px;
+        }
+        
+        .bx--search-magnifier {
+          fill: $text-02;
+        }
+      }
+
+      .unit-table-actions {
+        display: flex;
+
+        .bx--btn--ghost {
+          height: 48px;
+          width: 48px;
+          min-height: 48px;
+          
+          svg {
+            fill: $text-02;
+          }
+
+          &:hover {
+            background-color: $hover-ui;
+          }
+
+          &:disabled {
+            svg {
+              fill: #c6c6c6;
+            }
+          }
+        }
+      }
+    }
+
+    .bx--data-table {
+      th {
+        background-color: #e0e0e0;
+        font-family: 'IBM Plex Sans', sans-serif;
+        font-size: 12px;
+        font-weight: 600;
+        color: $text-01;
+        padding: 8px 16px;
+        letter-spacing: 0.16px;
+      }
+
+      tr {
+        background-color: $ui-02; // Light grey rows
+      }
+
+      td {
+        font-family: 'IBM Plex Sans', sans-serif;
+        font-size: 12px;
+        color: $text-01;
+        background-color: $ui-02; // Light grey cells
+        padding: 7px 16px;
+        border-bottom: 1px solid #c6c6c6;
+        letter-spacing: 0.32px;
+      }
+    }
+
+    // Primary row (first row) - bold text
+    .unit-row--primary td {
+      font-weight: 600;
+    }
+
+    // Secondary rows
+    .unit-row--secondary td {
+      color: $text-02;
+    }
+
+    // Unit ID links
+    .unit-link {
+      color: $interactive-01;
+      text-decoration: none;
+      font-size: 12px;
+      letter-spacing: 0.32px;
+
+      &:hover {
+        text-decoration: underline;
+      }
+
+      &--bold {
+        font-weight: 700;
+      }
+    }
+
+    // Cell text styling
+    .unit-cell {
+      font-size: 12px;
+      letter-spacing: 0.32px;
+
+      &--italic {
+        font-style: italic;
+        color: $text-02;
+      }
+
+      &--bold {
+        font-weight: 600;
+        color: $text-01;
       }
     }
   }

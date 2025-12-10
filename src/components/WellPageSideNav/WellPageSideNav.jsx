@@ -38,6 +38,7 @@ export const WellPageSideNav = ({
           renderIcon={ReportData16}
           title="Overview"
           defaultExpanded={true}
+          className={['well-details', 'unit-details'].includes(activeItem) ? 'bx--side-nav__menu--active' : ''}
         >
           <SideNavMenuItem
             aria-current={activeItem === 'well-details' ? 'page' : undefined}

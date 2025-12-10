@@ -22,7 +22,7 @@ $header-height: 72px;
     height: calc(100vh - #{$header-height}) !important;
     background-color: $ui-01; // White
     border-right: 1px solid $border-subtle;
-    padding-top: 24px;
+    padding-top: 16px;
     padding-bottom: 24px;
     z-index: 100;
 
@@ -163,6 +163,29 @@ $header-height: 72px;
   .bx--side-nav__submenu[aria-expanded="true"] {
     .bx--side-nav__icon svg {
       fill: $text-01;
+    }
+  }
+
+  // Active menu indicator in collapsed state
+  .bx--side-nav__menu--active {
+    .bx--side-nav__submenu {
+      position: relative;
+      background-color: $selected-ui;
+
+      // Blue left border indicator for active parent
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 3px;
+        background-color: $interactive-01;
+      }
+
+      .bx--side-nav__icon svg {
+        fill: $interactive-01;
+      }
     }
   }
 }

@@ -20,7 +20,8 @@ import {
   Copy16,
   Download16,
   Filter16,
-  CircleFilled16,
+  Column16,
+  ResetAlt16,
 } from '@carbon/icons-react';
 import './WellDetailsContent.scss';
 
@@ -135,7 +136,7 @@ export const WellDetailsContent = () => {
       <div className="well-details-content__map-section">
         <div className="well-details-content__map-container">
           <img 
-            src="/images/map.png" 
+            src="/Mask group.png" 
             alt="Well location map"
             className="well-details-content__map-image"
             onError={(e) => {
@@ -161,14 +162,21 @@ export const WellDetailsContent = () => {
       <div className="well-details-content__timeline-section">
         <div className="timeline-header">
           <h2 className="timeline-title">Well Life Timeline</h2>
-          <button className="timeline-edit-btn"><Edit16 /></button>
+          <Button 
+            kind="tertiary" 
+            size="field" 
+            hasIconOnly 
+            renderIcon={Edit16} 
+            iconDescription="Edit timeline"
+            className="timeline-edit-btn"
+          />
         </div>
         <div className="timeline">
           {timelineData.map((item, index) => (
             <div key={index} className="timeline__item">
               <div className="timeline__marker">
                 <div className="timeline__dot" />
-                {index < timelineData.length - 1 && <div className="timeline__line" />}
+                <div className="timeline__line" />
               </div>
               <div className="timeline__content">
                 <span className="timeline__label">{item.label}</span>
@@ -220,54 +228,71 @@ export const WellDetailsContent = () => {
         </DataTable>
       </div>
 
-      {/* Unit Details Table */}
-      <div className="well-details-content__table-section">
-        <h2 className="section-title">Unit Details</h2>
-        <div className="table-toolbar">
-          <Search
-            placeholder="Search input text"
-            labelText="Search"
-            size="lg"
-            className="table-search"
-          />
-          <div className="table-actions">
-            <Button kind="ghost" size="field" hasIconOnly renderIcon={Copy16} iconDescription="Copy" />
-            <Button kind="ghost" size="field" hasIconOnly renderIcon={Filter16} iconDescription="Filter" />
-            <Button kind="ghost" size="field" hasIconOnly renderIcon={Download16} iconDescription="Download" />
+      {/* Unit Details Section */}
+      <div className="well-details-content__unit-section">
+        <h2 className="well-details-content__section-heading">Unit Details</h2>
+        <div className="well-details-content__unit-table-wrapper">
+          <div className="unit-table-toolbar">
+            <Search
+              placeholder="Search input text"
+              labelText="Search"
+              size="lg"
+              className="unit-table-search"
+            />
+            <div className="unit-table-actions">
+              <Button kind="ghost" size="lg" hasIconOnly renderIcon={Copy16} iconDescription="Copy" />
+              <Button kind="ghost" size="lg" hasIconOnly renderIcon={Filter16} iconDescription="Filter" />
+              <Button kind="ghost" size="lg" hasIconOnly renderIcon={Column16} iconDescription="Columns" />
+              <Button kind="ghost" size="lg" hasIconOnly renderIcon={ResetAlt16} iconDescription="Reset" disabled />
+            </div>
           </div>
-        </div>
-        <DataTable rows={unitDetailsRows} headers={unitDetailsHeaders}>
-          {({ rows, headers, getTableProps, getHeaderProps, getRowProps }) => (
-            <TableContainer>
-              <Table {...getTableProps()}>
-                <TableHead>
-                  <TableRow>
-                    {headers.map((header) => (
-                      <TableHeader {...getHeaderProps({ header })} key={header.key}>
-                        {header.header}
-                      </TableHeader>
-                    ))}
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {rows.map((row) => (
-                    <TableRow {...getRowProps({ row })} key={row.id}>
-                      {row.cells.map((cell) => (
-                        <TableCell key={cell.id}>
-                          {cell.info.header === 'unitId' ? (
-                            <a href="#" className="unit-link">{cell.value}</a>
-                          ) : (
-                            cell.value
-                          )}
-                        </TableCell>
+          <DataTable rows={unitDetailsRows} headers={unitDetailsHeaders}>
+            {({ rows, headers, getTableProps, getHeaderProps, getRowProps }) => (
+              <TableContainer>
+                <Table {...getTableProps()}>
+                  <TableHead>
+                    <TableRow>
+                      {headers.map((header) => (
+                        <TableHeader {...getHeaderProps({ header })} key={header.key}>
+                          {header.header}
+                        </TableHeader>
                       ))}
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          )}
-        </DataTable>
+                  </TableHead>
+                  <TableBody>
+                    {rows.map((row, rowIndex) => (
+                      <TableRow 
+                        {...getRowProps({ row })} 
+                        key={row.id}
+                        className={rowIndex === 0 ? 'unit-row--primary' : 'unit-row--secondary'}
+                      >
+                        {row.cells.map((cell) => {
+                          const isUnitId = cell.info.header === 'unitId';
+                          const isNA = cell.value === 'N/A' || cell.value === 'No';
+                          const isPrimary = rowIndex === 0;
+                          
+                          return (
+                            <TableCell key={cell.id}>
+                              {isUnitId ? (
+                                <a href="#" className={`unit-link ${isPrimary ? 'unit-link--bold' : ''}`}>
+                                  {cell.value}
+                                </a>
+                              ) : (
+                                <span className={`unit-cell ${isNA && !isPrimary ? 'unit-cell--italic' : ''} ${isPrimary ? 'unit-cell--bold' : ''}`}>
+                                  {cell.value}
+                                </span>
+                              )}
+                            </TableCell>
+                          );
+                        })}
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            )}
+          </DataTable>
+        </div>
       </div>
     </div>
   );
