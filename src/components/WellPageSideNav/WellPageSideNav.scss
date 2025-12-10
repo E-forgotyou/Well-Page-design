@@ -1,6 +1,6 @@
 // Carbon v10 color tokens
-$ui-01: #ffffff; // White for sidenav
-$ui-background: #f4f4f4; // Light grey for page
+$ui-01: #ffffff; // White
+$ui-02: #f4f4f4; // Light grey for sidenav
 $text-01: #161616;
 $text-02: #525252;
 $icon-01: #161616;
@@ -8,7 +8,7 @@ $icon-02: #525252;
 $interactive-01: #0f62fe;
 $hover-ui: #e5e5e5;
 $selected-ui: rgba(141, 141, 141, 0.2);
-$border-subtle: #e0e0e0;
+$border-subtle: #c6c6c6;
 
 // Header height
 $header-height: 72px;
@@ -21,8 +21,9 @@ $header-height: 72px;
     left: 0 !important;
     height: calc(100vh - #{$header-height}) !important;
     background-color: $ui-01; // White
-    border-right: 1px solid $border-subtle;
-    padding-top: 16px;
+    border-left: 1px solid $border-subtle;
+    border-right: none;
+    padding-top: 24px;
     padding-bottom: 24px;
     z-index: 100;
 
@@ -32,7 +33,7 @@ $header-height: 72px;
       
       // Expand on hover
       &.bx--side-nav--expanded {
-        width: 256px;
+        width: 208px; // Match Figma expanded width
       }
 
       // Hide text when collapsed
@@ -44,13 +45,18 @@ $header-height: 72px;
           visibility: hidden;
         }
 
-        // Center icons in collapsed state
+        // Center icons in collapsed state - 16px padding, 16px icon = 48px total
         .bx--side-nav__submenu {
-          justify-content: center;
+          justify-content: flex-start;
           padding: 8px 16px;
 
           .bx--side-nav__icon {
             margin-right: 0;
+            
+            svg {
+              width: 16px;
+              height: 16px;
+            }
           }
         }
 
@@ -73,13 +79,24 @@ $header-height: 72px;
           display: block;
         }
 
+        // Parent menu items (with icons) - 16px padding, 24px gap
         .bx--side-nav__submenu {
           justify-content: flex-start;
           padding: 7px 16px;
+          gap: 24px;
 
           .bx--side-nav__icon {
-            margin-right: 24px;
+            margin-right: 0; // Use gap instead
+            flex-shrink: 0;
           }
+        }
+
+        // Child menu items - 32px left padding (16px spacer + 16px)
+        .bx--side-nav__menu-item .bx--side-nav__link {
+          padding-left: 56px; // 16px + 24px gap + 16px spacer
+          padding-right: 16px;
+          padding-top: 7px;
+          padding-bottom: 7px;
         }
       }
     }
@@ -130,7 +147,6 @@ $header-height: 72px;
       line-height: 18px;
       letter-spacing: 0.16px;
       color: $text-02;
-      padding-left: 32px;
       position: relative;
       transition: background-color 0.15s ease;
 
@@ -145,16 +161,8 @@ $header-height: 72px;
         font-weight: 600;
         color: $text-01;
 
-        // Blue left border indicator
-        &::before {
-          content: '';
-          position: absolute;
-          left: 0;
-          top: 0;
-          bottom: 0;
-          width: 3px;
-          background-color: $interactive-01;
-        }
+        // Blue left border indicator (inset shadow)
+        box-shadow: inset 3px 0 0 0 $interactive-01;
       }
     }
   }
@@ -172,19 +180,11 @@ $header-height: 72px;
       position: relative;
       background-color: $selected-ui;
 
-      // Blue left border indicator for active parent
-      &::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        width: 3px;
-        background-color: $interactive-01;
-      }
+      // Blue left border indicator for active parent (3px inset shadow)
+      box-shadow: inset 3px 0 0 0 $interactive-01;
 
       .bx--side-nav__icon svg {
-        fill: $interactive-01;
+        fill: $text-01; // Black icon for active state
       }
     }
   }
