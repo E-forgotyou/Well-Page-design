@@ -1,0 +1,294 @@
+// Carbon v10 color tokens
+$ui-01: #ffffff;
+$ui-02: #f4f4f4;
+$text-01: #161616;
+$text-02: #525252;
+$text-03: #a8a8a8;
+$interactive-01: #0f62fe;
+$border-subtle: #e0e0e0;
+$hover-ui: #e5e5e5;
+
+.well-details-content {
+  padding: 24px;
+  max-width: 100%;
+
+  // Page Title
+  &__title {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 36px;
+    color: $text-01;
+    margin-bottom: 24px;
+  }
+
+  // Map Section
+  &__map-section {
+    position: relative;
+    margin-bottom: 20px;
+  }
+
+  &__map-container {
+    width: 100%;
+    height: 320px;
+    background-color: $ui-01;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  &__map-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &__map-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background-color: #e0e0e0;
+    color: $text-02;
+
+    span {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    p {
+      font-size: 12px;
+      color: #6f6f6f;
+    }
+  }
+
+  &__map-controls {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    .map-control-btn {
+      width: 32px;
+      height: 32px;
+      background-color: $ui-01;
+      border: 1px solid $border-subtle;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background-color 0.15s ease;
+
+      &:hover {
+        background-color: $hover-ui;
+      }
+
+      svg {
+        fill: $text-01;
+      }
+    }
+  }
+
+  // Timeline Section
+  &__timeline-section {
+    background-color: $ui-01;
+    border-radius: 4px;
+    padding: 16px;
+    margin-bottom: 20px;
+
+    .timeline-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+
+      .timeline-title {
+        font-family: 'IBM Plex Sans', sans-serif;
+        font-size: 20px;
+        font-weight: 400;
+        color: $text-01;
+      }
+
+      .timeline-edit-btn {
+        width: 32px;
+        height: 32px;
+        background-color: transparent;
+        border: 1px solid $border-subtle;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+
+        &:hover {
+          background-color: $hover-ui;
+        }
+
+        svg {
+          fill: $text-02;
+        }
+      }
+    }
+
+    .timeline {
+      display: flex;
+      width: 100%;
+
+      &__item {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+
+      &__marker {
+        display: flex;
+        align-items: center;
+        margin-bottom: 8px;
+      }
+
+      &__dot {
+        width: 16px;
+        height: 16px;
+        background-color: $interactive-01;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+
+      &__line {
+        flex: 1;
+        height: 2px;
+        background-color: #c6c6c6;
+        margin-left: 0;
+      }
+
+      &__content {
+        display: flex;
+        flex-direction: column;
+        padding-right: 16px;
+      }
+
+      &__label {
+        font-family: 'IBM Plex Sans', sans-serif;
+        font-size: 14px;
+        font-weight: 400;
+        color: $text-01;
+        margin-bottom: 4px;
+      }
+
+      &__date {
+        font-family: 'IBM Plex Sans', sans-serif;
+        font-size: 12px;
+        color: $text-02;
+      }
+    }
+  }
+
+  // Stats Grid
+  &__stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 20px;
+
+    .stats-tile {
+      background-color: $ui-01;
+      border-radius: 4px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+
+      &__label {
+        font-family: 'IBM Plex Sans', sans-serif;
+        font-size: 12px;
+        color: $text-02;
+        margin-bottom: 8px;
+      }
+
+      &__value {
+        font-family: 'IBM Plex Sans', sans-serif;
+        font-size: 28px;
+        font-weight: 300;
+        color: $text-01;
+      }
+    }
+  }
+
+  // Table Sections
+  &__table-section {
+    background-color: $ui-01;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    overflow: hidden;
+
+    .section-title {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 20px;
+      font-weight: 400;
+      color: $text-01;
+      padding: 16px;
+      margin: 0;
+      border-bottom: 1px solid $border-subtle;
+    }
+
+    .table-toolbar {
+      display: flex;
+      align-items: center;
+      padding: 0;
+      border-bottom: 1px solid $border-subtle;
+
+      .table-search {
+        flex: 1;
+
+        .bx--search-input {
+          background-color: $ui-01;
+          border: none;
+        }
+      }
+
+      .table-actions {
+        display: flex;
+        padding: 0 8px;
+
+        .bx--btn {
+          min-height: 48px;
+        }
+      }
+    }
+
+    // Carbon DataTable overrides
+    .bx--data-table-container {
+      padding: 0;
+    }
+
+    .bx--data-table {
+      th {
+        background-color: #e0e0e0;
+        font-family: 'IBM Plex Sans', sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        color: $text-01;
+      }
+
+      td {
+        font-family: 'IBM Plex Sans', sans-serif;
+        font-size: 14px;
+        color: $text-01;
+      }
+    }
+
+    .unit-link {
+      color: $interactive-01;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+

@@ -1,0 +1,36 @@
+// Import Carbon component styles
+@import 'carbon-components/scss/components/button/button';
+@import 'carbon-components/scss/components/overflow-menu/overflow-menu';
+@import 'carbon-components/scss/components/ui-shell/side-nav';
+@import 'carbon-components/scss/components/data-table/data-table';
+@import 'carbon-components/scss/components/search/search';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'IBM Plex Sans', sans-serif;
+  background-color: #f4f4f4;
+}
+
+.app {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f4f4f4;
+}
+
+.app__layout {
+  display: flex;
+  min-height: calc(100vh - 72px);
+}
+
+.app__main {
+  flex: 1;
+  padding-left: 48px; // Account for collapsed sidenav
+  background-color: #f4f4f4;
+  transition: padding-left 0.15s ease;
+  overflow-y: auto;
+}

@@ -1,0 +1,148 @@
+// Carbon v10 color tokens
+$ui-01: #ffffff; // White for header
+$ui-background: #f4f4f4; // Light grey for page
+$text-01: #161616;
+$text-02: #525252;
+$support-02: #198038;
+$icon-01: #161616;
+$hover-ui: #e5e5e5;
+$interactive-01: #0f62fe;
+$border-subtle: #e0e0e0;
+
+// Spacing tokens
+$spacing-02: 4px;
+$spacing-03: 8px;
+$spacing-04: 12px;
+$spacing-05: 16px;
+$spacing-06: 24px;
+
+.well-page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $spacing-06;
+  background-color: $ui-01; // White
+  width: 100%;
+  height: 72px;
+  min-height: 72px;
+  position: relative;
+  z-index: 200;
+  border-bottom: 1px solid $border-subtle;
+
+  // Left Section
+  &__left {
+    display: flex;
+    align-items: center;
+    gap: $spacing-05;
+  }
+
+  // Title Group (Icon + UWI)
+  &__title-group {
+    display: flex;
+    align-items: center;
+    gap: $spacing-03;
+  }
+
+  &__icon {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  &__title {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 28px;
+    line-height: 36px;
+    font-weight: 400;
+    margin: 0;
+    display: flex;
+    gap: $spacing-02;
+    white-space: nowrap;
+  }
+
+  &__title-label {
+    color: $text-02;
+  }
+
+  &__title-value {
+    color: $text-01;
+  }
+
+  // Version Group
+  &__version-group {
+    display: flex;
+    align-items: center;
+    gap: $spacing-02;
+  }
+
+  &__version-info {
+    display: flex;
+    align-items: center;
+    padding: 7px 0;
+  }
+
+  &__version-text {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.16px;
+    color: $support-02;
+    white-space: nowrap;
+  }
+
+  &__version-menu {
+    .bx--overflow-menu {
+      background-color: transparent;
+      
+      &:hover {
+        background-color: $hover-ui;
+      }
+    }
+
+    .bx--overflow-menu__icon {
+      fill: $icon-01;
+    }
+  }
+
+  // Right Section
+  &__right {
+    display: flex;
+    align-items: center;
+    gap: $spacing-04;
+    justify-content: flex-end;
+
+    // Style the tertiary icon-only buttons (medium = 40px)
+    .bx--btn--tertiary.bx--btn--icon-only {
+      width: 40px;
+      height: 40px;
+      min-height: 40px;
+      padding: 0;
+      border: 1px solid $interactive-01;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      svg {
+        fill: $interactive-01;
+        width: 16px;
+        height: 16px;
+      }
+
+      &:hover {
+        background-color: $interactive-01;
+        
+        svg {
+          fill: #ffffff;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,168 @@
+// Carbon v10 color tokens
+$ui-01: #ffffff; // White for sidenav
+$ui-background: #f4f4f4; // Light grey for page
+$text-01: #161616;
+$text-02: #525252;
+$icon-01: #161616;
+$icon-02: #525252;
+$interactive-01: #0f62fe;
+$hover-ui: #e5e5e5;
+$selected-ui: rgba(141, 141, 141, 0.2);
+$border-subtle: #e0e0e0;
+
+// Header height
+$header-height: 72px;
+
+.well-page-sidenav {
+  &.bx--side-nav {
+    // Position below the header - override Carbon defaults
+    position: fixed !important;
+    top: $header-height !important;
+    left: 0 !important;
+    height: calc(100vh - #{$header-height}) !important;
+    background-color: $ui-01; // White
+    border-right: 1px solid $border-subtle;
+    padding-top: 24px;
+    padding-bottom: 24px;
+    z-index: 100;
+
+    // Rail mode - collapsed (default)
+    &.bx--side-nav--rail {
+      width: 48px;
+      
+      // Expand on hover
+      &.bx--side-nav--expanded {
+        width: 256px;
+      }
+
+      // Hide text when collapsed
+      &:not(.bx--side-nav--expanded) {
+        .bx--side-nav__submenu-title,
+        .bx--side-nav__link-text,
+        .bx--side-nav__submenu-chevron {
+          opacity: 0;
+          visibility: hidden;
+        }
+
+        // Center icons in collapsed state
+        .bx--side-nav__submenu {
+          justify-content: center;
+          padding: 8px 16px;
+
+          .bx--side-nav__icon {
+            margin-right: 0;
+          }
+        }
+
+        // Hide menu items when collapsed
+        .bx--side-nav__menu-item {
+          display: none;
+        }
+      }
+
+      // Show content when expanded
+      &.bx--side-nav--expanded {
+        .bx--side-nav__submenu-title,
+        .bx--side-nav__link-text,
+        .bx--side-nav__submenu-chevron {
+          opacity: 1;
+          visibility: visible;
+        }
+
+        .bx--side-nav__menu-item {
+          display: block;
+        }
+
+        .bx--side-nav__submenu {
+          justify-content: flex-start;
+          padding: 7px 16px;
+
+          .bx--side-nav__icon {
+            margin-right: 24px;
+          }
+        }
+      }
+    }
+  }
+
+  // Menu sections (expandable)
+  .bx--side-nav__menu {
+    .bx--side-nav__submenu {
+      background-color: transparent;
+      transition: background-color 0.15s ease;
+
+      &:hover {
+        background-color: $hover-ui;
+      }
+
+      .bx--side-nav__submenu-title {
+        font-family: 'IBM Plex Sans', sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 18px;
+        letter-spacing: 0.16px;
+        color: $text-02;
+        transition: opacity 0.15s ease;
+      }
+
+      .bx--side-nav__icon {
+        svg {
+          fill: $icon-02;
+        }
+      }
+
+      .bx--side-nav__submenu-chevron {
+        transition: opacity 0.15s ease;
+        
+        svg {
+          fill: $icon-02;
+        }
+      }
+    }
+  }
+
+  // Sub-menu items
+  .bx--side-nav__menu-item {
+    .bx--side-nav__link {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 18px;
+      letter-spacing: 0.16px;
+      color: $text-02;
+      padding-left: 32px;
+      position: relative;
+      transition: background-color 0.15s ease;
+
+      &:hover {
+        background-color: $hover-ui;
+      }
+
+      // Active/selected state
+      &[aria-current='page'],
+      &.bx--side-nav__link--current {
+        background-color: $selected-ui;
+        font-weight: 600;
+        color: $text-01;
+
+        // Blue left border indicator
+        &::before {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 0;
+          bottom: 0;
+          width: 3px;
+          background-color: $interactive-01;
+        }
+      }
+    }
+  }
+
+  // Selected state for rail mode icons
+  .bx--side-nav__submenu[aria-expanded="true"] {
+    .bx--side-nav__icon svg {
+      fill: $text-01;
+    }
+  }
+}
