@@ -1,151 +1,123 @@
-// Carbon v10 color tokens
-$ui-01: #ffffff; // White for header
-$ui-background: #f4f4f4; // Light grey for page
-$text-01: #161616;
-$text-02: #525252;
-$support-02: #198038;
-$icon-01: #161616;
-$hover-ui: #e5e5e5;
-$interactive-01: #0f62fe;
-$border-subtle: #e0e0e0;
-
-// Spacing tokens
-$spacing-02: 4px;
-$spacing-03: 8px;
-$spacing-04: 12px;
-$spacing-05: 16px;
-$spacing-06: 24px;
-
 .well-page-header {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  width: 100%;
+}
+
+.well-page-header__top {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: $spacing-06;
-  background-color: $ui-01; // White
-  width: 100%;
-  height: 72px;
-  min-height: 72px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 200;
-  border-bottom: 1px solid $border-subtle;
+  padding: 24px;
+}
 
-  // Left Section
-  &__left {
-    display: flex;
-    align-items: center;
-    gap: $spacing-05;
+.well-page-header__left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.well-page-header__title-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.well-page-header__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+
+.well-page-header__title {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 36px;
+  margin: 0;
+  display: flex;
+  gap: 8px;
+}
+
+.well-page-header__title-label {
+  color: #525252;
+}
+
+.well-page-header__title-value {
+  color: #161616;
+}
+
+.well-page-header__version-group {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.well-page-header__version-text {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.16px;
+  color: #198038;
+}
+
+.well-page-header__version-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  padding: 7px;
+  cursor: pointer;
+  
+  svg {
+    fill: #198038;
   }
 
-  // Title Group (Icon + UWI)
-  &__title-group {
-    display: flex;
-    align-items: center;
-    gap: $spacing-03;
+  &:hover {
+    background-color: #e0e0e0;
   }
+}
 
-  &__icon {
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
+.well-page-header__right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
 
-    svg {
-      width: 24px;
-      height: 24px;
-    }
-  }
+// Info Bar
+.well-page-header__info-bar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 0 24px 16px 24px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
 
-  &__title {
-    font-family: 'IBM Plex Sans', sans-serif;
-    font-size: 28px;
-    line-height: 36px;
-    font-weight: 400;
-    margin: 0;
-    display: flex;
-    gap: $spacing-02;
-    white-space: nowrap;
-  }
+.well-page-header__info-item {
+  display: flex;
+  flex-direction: column;
+}
 
-  &__title-label {
-    color: $text-02;
-  }
+.well-page-header__info-label {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.32px;
+  color: #6f6f6f;
+}
 
-  &__title-value {
-    color: $text-01;
-  }
-
-  // Version Group
-  &__version-group {
-    display: flex;
-    align-items: center;
-    gap: $spacing-02;
-  }
-
-  &__version-info {
-    display: flex;
-    align-items: center;
-    padding: 7px 0;
-  }
-
-  &__version-text {
-    font-family: 'IBM Plex Sans', sans-serif;
-    font-size: 14px;
-    line-height: 20px;
-    letter-spacing: 0.16px;
-    color: $support-02;
-    white-space: nowrap;
-  }
-
-  &__version-menu {
-    .bx--overflow-menu {
-      background-color: transparent;
-      
-      &:hover {
-        background-color: $hover-ui;
-      }
-    }
-
-    .bx--overflow-menu__icon {
-      fill: $icon-01;
-    }
-  }
-
-  // Right Section
-  &__right {
-    display: flex;
-    align-items: center;
-    gap: $spacing-04;
-    justify-content: flex-end;
-
-    // Style the tertiary icon-only buttons (medium = 40px)
-    .bx--btn--tertiary.bx--btn--icon-only {
-      width: 40px;
-      height: 40px;
-      min-height: 40px;
-      padding: 0;
-      border: 1px solid $interactive-01;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      svg {
-        fill: $interactive-01;
-        width: 16px;
-        height: 16px;
-      }
-
-      &:hover {
-        background-color: $interactive-01;
-        
-        svg {
-          fill: #ffffff;
-        }
-      }
-    }
-  }
+.well-page-header__info-value {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  letter-spacing: 0.16px;
+  color: #161616;
 }

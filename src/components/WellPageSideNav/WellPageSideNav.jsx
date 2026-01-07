@@ -1,177 +1,162 @@
 import React, { useState } from 'react';
 import {
-  SideNav,
-  SideNavItems,
-  SideNavMenu,
-  SideNavMenuItem,
-} from 'carbon-components-react';
-import {
   ReportData16,
   DataRegular16,
   Certificate16,
   Finance16,
+  ChevronUp16,
+  ChevronDown16,
 } from '@carbon/icons-react';
 import './WellPageSideNav.scss';
+
+const navSections = [
+  {
+    id: 'overview',
+    title: 'Overview',
+    icon: ReportData16,
+    items: [
+      { id: 'well-details', label: 'Well Details' },
+      { id: 'unit-details', label: 'Unit Details' },
+    ],
+  },
+  {
+    id: 'operations',
+    title: 'Operations',
+    icon: DataRegular16,
+    items: [
+      { id: 'well-geometries', label: 'Well Geometries' },
+      { id: 'landing-analysis', label: 'Landing Analysis' },
+      { id: 'completion', label: 'Completion' },
+      { id: 'treatments', label: 'Treatments' },
+      { id: 'perforations', label: 'Perforations' },
+      { id: 'well-analysis', label: 'Well Analysis' },
+      { id: 'decline-curve-analysis', label: 'Decline Curve Analysis' },
+      { id: 'allocation-manager', label: 'Allocation Manager' },
+    ],
+  },
+  {
+    id: 'land-ownership',
+    title: 'Land & Ownership',
+    icon: Certificate16,
+    items: [
+      { id: 'ownership', label: 'Ownership' },
+      { id: 'division-orders', label: 'Division Orders' },
+      { id: 'royalty-checks', label: 'Royalty Checks' },
+      { id: 'revenue-properties', label: 'Revenue Properties' },
+    ],
+  },
+  {
+    id: 'financial',
+    title: 'Financial',
+    icon: Finance16,
+    items: [
+      { id: 'financial-overview', label: 'Financial Overview' },
+    ],
+  },
+];
 
 export const WellPageSideNav = ({
   activeItem = 'well-details',
   onNavigate,
 }) => {
   const [expanded, setExpanded] = useState(false);
+  const [expandedSections, setExpandedSections] = useState({
+    overview: true,
+    operations: true,
+    'land-ownership': true,
+    financial: false,
+  });
 
   const handleNavigation = (itemId) => {
     onNavigate && onNavigate(itemId);
   };
 
+  const toggleSection = (sectionId) => {
+    setExpandedSections(prev => ({
+      ...prev,
+      [sectionId]: !prev[sectionId],
+    }));
+  };
+
+  // Find which section contains the active item
+  const getActiveSectionId = () => {
+    for (const section of navSections) {
+      if (section.items.some(item => item.id === activeItem)) {
+        return section.id;
+      }
+    }
+    return null;
+  };
+
+  const activeSectionId = getActiveSectionId();
+
   return (
-    <SideNav
-      isRail
-      expanded={expanded}
+    <nav
+      className={`well-page-sidenav ${expanded ? 'well-page-sidenav--expanded' : ''}`}
       onMouseEnter={() => setExpanded(true)}
       onMouseLeave={() => setExpanded(false)}
       aria-label="Side navigation"
-      className="well-page-sidenav"
     >
-      <SideNavItems>
-        {/* Overview Section */}
-        <SideNavMenu
-          renderIcon={ReportData16}
-          title="Overview"
-          defaultExpanded={true}
-          className={['well-details', 'unit-details'].includes(activeItem) ? 'bx--side-nav__menu--active' : ''}
-        >
-          <SideNavMenuItem
-            aria-current={activeItem === 'well-details' ? 'page' : undefined}
-            isActive={activeItem === 'well-details'}
-            onClick={() => handleNavigation('well-details')}
-          >
-            Well Details
-          </SideNavMenuItem>
-          <SideNavMenuItem
-            aria-current={activeItem === 'unit-details' ? 'page' : undefined}
-            isActive={activeItem === 'unit-details'}
-            onClick={() => handleNavigation('unit-details')}
-          >
-            Unit Details
-          </SideNavMenuItem>
-        </SideNavMenu>
+      {/* Collapsed View - Icons Only */}
+      {!expanded && (
+        <div className="well-page-sidenav__collapsed">
+          {navSections.map((section) => {
+            const Icon = section.icon;
+            const isActive = section.id === activeSectionId;
+            return (
+              <button
+                key={section.id}
+                className={`well-page-sidenav__icon-btn ${isActive ? 'well-page-sidenav__icon-btn--active' : ''}`}
+                onClick={() => {
+                  const firstItem = section.items[0];
+                  if (firstItem) handleNavigation(firstItem.id);
+                }}
+                title={section.title}
+              >
+                <Icon />
+              </button>
+            );
+          })}
+        </div>
+      )}
 
-        {/* Operations Section */}
-        <SideNavMenu
-          renderIcon={DataRegular16}
-          title="Operations"
-          defaultExpanded={true}
-        >
-          <SideNavMenuItem
-            aria-current={activeItem === 'well-geometries' ? 'page' : undefined}
-            isActive={activeItem === 'well-geometries'}
-            onClick={() => handleNavigation('well-geometries')}
-          >
-            Well Geometries
-          </SideNavMenuItem>
-          <SideNavMenuItem
-            aria-current={activeItem === 'landing-analysis' ? 'page' : undefined}
-            isActive={activeItem === 'landing-analysis'}
-            onClick={() => handleNavigation('landing-analysis')}
-          >
-            Landing Analysis
-          </SideNavMenuItem>
-          <SideNavMenuItem
-            aria-current={activeItem === 'completion' ? 'page' : undefined}
-            isActive={activeItem === 'completion'}
-            onClick={() => handleNavigation('completion')}
-          >
-            Completion
-          </SideNavMenuItem>
-          <SideNavMenuItem
-            aria-current={activeItem === 'treatments' ? 'page' : undefined}
-            isActive={activeItem === 'treatments'}
-            onClick={() => handleNavigation('treatments')}
-          >
-            Treatments
-          </SideNavMenuItem>
-          <SideNavMenuItem
-            aria-current={activeItem === 'perforations' ? 'page' : undefined}
-            isActive={activeItem === 'perforations'}
-            onClick={() => handleNavigation('perforations')}
-          >
-            Perforations
-          </SideNavMenuItem>
-          <SideNavMenuItem
-            aria-current={activeItem === 'well-analysis' ? 'page' : undefined}
-            isActive={activeItem === 'well-analysis'}
-            onClick={() => handleNavigation('well-analysis')}
-          >
-            Well Analysis
-          </SideNavMenuItem>
-          <SideNavMenuItem
-            aria-current={activeItem === 'decline-curve-analysis' ? 'page' : undefined}
-            isActive={activeItem === 'decline-curve-analysis'}
-            onClick={() => handleNavigation('decline-curve-analysis')}
-          >
-            Decline Curve Analysis
-          </SideNavMenuItem>
-          <SideNavMenuItem
-            aria-current={activeItem === 'allocation-manager' ? 'page' : undefined}
-            isActive={activeItem === 'allocation-manager'}
-            onClick={() => handleNavigation('allocation-manager')}
-          >
-            Allocation Manager
-          </SideNavMenuItem>
-        </SideNavMenu>
-
-        {/* Land & Ownership Section */}
-        <SideNavMenu
-          renderIcon={Certificate16}
-          title="Land & Ownership"
-          defaultExpanded={true}
-        >
-          <SideNavMenuItem
-            aria-current={activeItem === 'ownership' ? 'page' : undefined}
-            isActive={activeItem === 'ownership'}
-            onClick={() => handleNavigation('ownership')}
-          >
-            Ownership
-          </SideNavMenuItem>
-          <SideNavMenuItem
-            aria-current={activeItem === 'division-orders' ? 'page' : undefined}
-            isActive={activeItem === 'division-orders'}
-            onClick={() => handleNavigation('division-orders')}
-          >
-            Division Orders
-          </SideNavMenuItem>
-          <SideNavMenuItem
-            aria-current={activeItem === 'royalty-checks' ? 'page' : undefined}
-            isActive={activeItem === 'royalty-checks'}
-            onClick={() => handleNavigation('royalty-checks')}
-          >
-            Royalty Checks
-          </SideNavMenuItem>
-          <SideNavMenuItem
-            aria-current={activeItem === 'revenue-properties' ? 'page' : undefined}
-            isActive={activeItem === 'revenue-properties'}
-            onClick={() => handleNavigation('revenue-properties')}
-          >
-            Revenue Properties
-          </SideNavMenuItem>
-        </SideNavMenu>
-
-        {/* Financial Section */}
-        <SideNavMenu
-          renderIcon={Finance16}
-          title="Financial"
-          defaultExpanded={false}
-        >
-          <SideNavMenuItem
-            aria-current={activeItem === 'financial-overview' ? 'page' : undefined}
-            isActive={activeItem === 'financial-overview'}
-            onClick={() => handleNavigation('financial-overview')}
-          >
-            Financial Overview
-          </SideNavMenuItem>
-        </SideNavMenu>
-      </SideNavItems>
-    </SideNav>
+      {/* Expanded View - Full Menu */}
+      {expanded && (
+        <div className="well-page-sidenav__expanded">
+          {navSections.map((section) => {
+            const Icon = section.icon;
+            const isExpanded = expandedSections[section.id];
+            return (
+              <div key={section.id} className="well-page-sidenav__section">
+                <button
+                  className="well-page-sidenav__section-header"
+                  onClick={() => toggleSection(section.id)}
+                >
+                  <div className="well-page-sidenav__section-left">
+                    <Icon />
+                    <span>{section.title}</span>
+                  </div>
+                  {isExpanded ? <ChevronUp16 /> : <ChevronDown16 />}
+                </button>
+                {isExpanded && (
+                  <div className="well-page-sidenav__section-items">
+                    {section.items.map((item) => (
+                      <button
+                        key={item.id}
+                        className={`well-page-sidenav__item ${activeItem === item.id ? 'well-page-sidenav__item--active' : ''}`}
+                        onClick={() => handleNavigation(item.id)}
+                      >
+                        {item.label}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </nav>
   );
 };
 

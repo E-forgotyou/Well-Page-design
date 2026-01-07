@@ -1,1 +1,51 @@
-// App-level styles (if needed for overrides)
+.app {
+  width: 100%;
+  height: 100vh;
+  background-color: #f4f4f4;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.app__layout {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  height: calc(100vh - 138px); // Subtract header height
+}
+
+.app__main {
+  flex: 1;
+  padding: 24px;
+  background-color: #f4f4f4;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.app__page-title {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 36px;
+  color: #161616;
+  margin: 0 0 24px 0;
+}
+
+.app__content-placeholder {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #c6c6c6;
+  min-height: 400px;
+
+  span {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 300;
+    font-size: 60px;
+    line-height: 70px;
+    color: #161616;
+  }
+}

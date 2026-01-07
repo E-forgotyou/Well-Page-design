@@ -1,9 +1,9 @@
 import React from 'react';
 import { Button, OverflowMenu, OverflowMenuItem } from 'carbon-components-react';
-import { ChevronDown16, Upload16, AddComment16 } from '@carbon/icons-react';
+import { ChevronDown16, Upload16, Chat16 } from '@carbon/icons-react';
 import './WellPageHeader.scss';
 
-// Well icon SVG component (Stronghold well icon)
+// Well icon SVG component
 const WellIcon = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path fillRule="evenodd" clipRule="evenodd" d="M23.0817 10.9618V21.388H21.5861L21.5859 11.4613L22.2504 11.2333L23.0817 10.9618Z" fill="#0F62FE"/>
@@ -20,81 +20,89 @@ const WellIcon = () => (
   </svg>
 );
 
+// Well info data
+const wellInfoData = [
+  { label: 'Current Operator', value: 'CIVITAS PERMIAN OPERATING LLC' },
+  { label: 'Well Name', value: 'MCDANIEL B-CHRISMAN 40 #104HA' },
+  { label: 'SRP Well Status', value: 'Producing' },
+  { label: 'Permit Date', value: '09/09/2019' },
+  { label: 'Spud Date', value: '02/18/2020' },
+  { label: 'Rig Release Date', value: '03/06/2020' },
+  { label: 'Completion Date', value: '12/23/2020' },
+  { label: 'First Production Date', value: '12/01/2020' },
+  { label: 'Last Production Date', value: '10/01/2025' },
+];
+
 export const WellPageHeader = ({
   uwi = '4217338203',
   version = 3,
   versionDate = '1/19/2025 03:39 AM',
   isCurrent = true,
+  wellInfo = wellInfoData,
   onVersionSelect,
   onUploadClick,
   onCommentClick,
 }) => {
-  const versionText = `Version ${version}${isCurrent ? ' Current' : ''} (${versionDate})`;
+  const versionText = `Version ${version} Current (${versionDate})`;
 
   return (
-    <header className="well-page-header">
-      {/* Left Section */}
-      <div className="well-page-header__left">
-        {/* Well Icon and UWI */}
-        <div className="well-page-header__title-group">
-          <div className="well-page-header__icon">
-            <WellIcon />
+    <div className="well-page-header">
+      {/* Top Row */}
+      <div className="well-page-header__top">
+        <div className="well-page-header__left">
+          {/* Well Icon and UWI */}
+          <div className="well-page-header__title-group">
+            <div className="well-page-header__icon">
+              <WellIcon />
+            </div>
+            <h1 className="well-page-header__title">
+              <span className="well-page-header__title-label">UWI</span>
+              <span className="well-page-header__title-value">{uwi}</span>
+            </h1>
           </div>
-          <h1 className="well-page-header__title">
-            <span className="well-page-header__title-label">UWI</span>
-            <span className="well-page-header__title-value">{uwi}</span>
-          </h1>
-        </div>
 
-        {/* Version Info */}
-        <div className="well-page-header__version-group">
-          <div className="well-page-header__version-info">
+          {/* Version Info */}
+          <div className="well-page-header__version-group">
             <span className="well-page-header__version-text">{versionText}</span>
+            <button className="well-page-header__version-btn">
+              <ChevronDown16 />
+            </button>
           </div>
-          <OverflowMenu
-            flipped
-            renderIcon={ChevronDown16}
-            className="well-page-header__version-menu"
-            iconDescription="Version history"
-          >
-            <OverflowMenuItem 
-              itemText="Version 3 (Current)" 
-              onClick={() => onVersionSelect && onVersionSelect(3)}
-            />
-            <OverflowMenuItem 
-              itemText="Version 2" 
-              onClick={() => onVersionSelect && onVersionSelect(2)}
-            />
-            <OverflowMenuItem 
-              itemText="Version 1" 
-              onClick={() => onVersionSelect && onVersionSelect(1)}
-            />
-          </OverflowMenu>
+        </div>
+
+        {/* Right Section - Action Buttons */}
+        <div className="well-page-header__right">
+          <Button
+            kind="tertiary"
+            size="field"
+            hasIconOnly
+            renderIcon={Upload16}
+            iconDescription="Upload"
+            tooltipPosition="bottom"
+            onClick={onUploadClick}
+          />
+          <Button
+            kind="tertiary"
+            size="field"
+            hasIconOnly
+            renderIcon={Chat16}
+            iconDescription="Comment"
+            tooltipPosition="bottom"
+            onClick={onCommentClick}
+          />
         </div>
       </div>
 
-      {/* Right Section - Action Buttons (Tertiary, Icon Only, Medium) */}
-      <div className="well-page-header__right">
-        <Button
-          kind="tertiary"
-          size="field"
-          hasIconOnly
-          renderIcon={Upload16}
-          iconDescription="Upload"
-          tooltipPosition="bottom"
-          onClick={onUploadClick}
-        />
-        <Button
-          kind="tertiary"
-          size="field"
-          hasIconOnly
-          renderIcon={AddComment16}
-          iconDescription="Add Comment"
-          tooltipPosition="bottom"
-          onClick={onCommentClick}
-        />
+      {/* Info Bar */}
+      <div className="well-page-header__info-bar">
+        {wellInfo.map((item, index) => (
+          <div key={index} className="well-page-header__info-item">
+            <span className="well-page-header__info-label">{item.label}</span>
+            <span className="well-page-header__info-value">{item.value}</span>
+          </div>
+        ))}
       </div>
-    </header>
+    </div>
   );
 };
 

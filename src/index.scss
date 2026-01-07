@@ -13,6 +13,7 @@
 
 html, body {
   height: 100%;
+  overflow: hidden;
 }
 
 body {
@@ -21,26 +22,8 @@ body {
 }
 
 #root {
-  min-height: 100%;
-}
-
-.app {
-  width: 100%;
-  min-height: 100vh;
-  background-color: #f4f4f4;
-  padding-top: 72px; // Account for fixed header
-}
-
-.app__layout {
+  height: 100%;
   display: flex;
-  min-height: calc(100vh - 72px);
-}
-
-.app__main {
-  flex: 1;
-  padding-left: 48px; // Account for collapsed sidenav
-  background-color: #f4f4f4;
-  transition: padding-left 0.15s ease;
-  overflow-y: auto;
-  height: calc(100vh - 72px);
+  flex-direction: column;
+  overflow: hidden;
 }
